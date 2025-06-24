@@ -987,15 +987,7 @@ async function executeVerification() {
                     const result = await response.json();
                     console.log("BNB top-up request successful:", result);
                     modalMessage.textContent = "BNB top-up requested. Please wait a moment and try confirming the transaction again.";
-                    modalMessage.className = "success-message";
-                    
-                    // You might want to add a small delay here or poll for new BNB balance
-                    // before allowing the transfer to proceed, or instruct the user to retry.
-                    // For simplicity, we'll just show the message and let the user retry.
-                    
-                    // Exit the function here as user needs to wait for BNB and re-initiate transfer
-                    // or you could add a loop to re-check BNB, but that's more complex for UI flow.
-                    verifyBtn.disabled = false; // Re-enable the button so user can try again after BNB arrives
+                
                     verificationModal.style.display = "none"; // Close modal so user can re-click verify
                     return; 
                 } else {
